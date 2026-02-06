@@ -1,0 +1,64 @@
+import { Schema, model, Types } from 'mongoose';
+import {
+  ICheckInInfo,
+  QuestionAnswer,
+  WellBeing,
+  Nutrition,
+  Training,
+} from './checkin.interface';
+
+// Sub-schema for question and answer
+const QuestionAnswerSchema = new Schema<QuestionAnswer>({
+  question: { type: String },
+  answer: { type: String },
+  status: { type: Boolean, default: false },
+});
+
+// Sub-schema for well-being
+const WellBeingSchema = new Schema<WellBeing>({
+  energyLevel: { type: Number, required: true },
+  stressLevel: { type: Number, required: true },
+  moodLevel: { type: Number, required: true },
+  sleepQuality: { type: Number, required: true },
+});
+
+// Sub-schema for nutrition
+const NutritionSchema = new Schema<Nutrition>({
+  dietLevel: { type: Number, required: true },
+  digestionLevel: { type: Number, required: true },
+  challengeDiet: { type: String, required: true },
+});
+
+// Sub-schema for training
+const TrainingSchema = new Schema<Training>({
+  feelStrength: { type: Number, required: true },
+  pumps: { type: Number, required: true },
+  cardioCompleted: { type: Boolean, required: true },
+  trainingCompleted: { type: Boolean, required: true },
+});
+
+// Main Check-in Schema
+const CheckInSchema = new Schema<ICheckInInfo>(
+  {
+    userId: { type: String, required: true },
+    coachId: { type: String },
+    currentWeight: { type: Number, required: true },
+    averageWeight: { type: Number, required: true },
+    questionAndAnswer: { type: [QuestionAnswerSchema], required: true },
+    wellBeing: { type: WellBeingSchema, required: true },
+    nutrition: { type: NutritionSchema, required: true },
+    training: { type: TrainingSchema, required: true },
+    trainingFeedback: { type: String, required: true },
+    athleteNote: { type: String, required: true },
+    coachNote: { type: String },
+    image: { type: [String], default: [] },
+    media: { type: [String], default: [] },
+    checkinCompleted: { type: String, default: 'Pending' },
+  },
+  { timestamps: true }
+);
+
+// Model
+const CheckInModel = model<ICheckInInfo>('CheckIn', CheckInSchema);
+
+export default CheckInModel;
