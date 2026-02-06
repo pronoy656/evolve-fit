@@ -13,8 +13,13 @@ app.use(Morgan.errorHandler);
 //body parser
 app.use(
   cors({
-    origin: ['http://10.10.7.100:3000', 'http://localhost:3000'],
-  })
+    origin: [
+      'http://10.10.7.100:3000',
+      'http://localhost:3000',
+      'https://evolveapp.fit',
+      'https://www.evolveapp.fit',
+    ],
+  }),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +36,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send(
     `<h1 style="text-align:center; color:#173616; font-family:Verdana;">Beep-beep! The server is alive and kicking.</h1>
     <p style="text-align:center; color:#173616; font-family:Verdana;">${date}</p>
-    `
+    `,
   );
 });
 
