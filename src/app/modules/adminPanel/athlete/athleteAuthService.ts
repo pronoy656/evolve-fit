@@ -27,6 +27,8 @@ export class AthleteAuthService {
   async loginAthleteFromDB(payload: ILoginData) {
     const { email, password, fcmToken } = payload;
 
+    console.log(payload);
+
     const isExistAthlete = await AthleteModel.findOne({ email }).select(
       '+password',
     );

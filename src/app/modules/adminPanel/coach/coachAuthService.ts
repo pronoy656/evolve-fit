@@ -31,7 +31,7 @@ export class CoachAuthService {
 
     // Find coach by email with password field
     const isExistCoach = await CoachModel.findOne({ email }).select(
-      '+password'
+      '+password',
     );
     if (!isExistCoach) {
       throw new ApiError(StatusCodes.BAD_REQUEST, "Coach doesn't exist!");
@@ -64,7 +64,7 @@ export class CoachAuthService {
         name: isExistCoach.name,
       },
       config.jwt.jwt_secret as Secret,
-      config.jwt.jwt_expire_in as string
+      config.jwt.jwt_expire_in as string,
     );
 
     // Remove sensitive data from response
@@ -122,7 +122,7 @@ export class CoachAuthService {
   async verifyEmailToDB(payload: IVerifyEmail) {
     const { email, oneTimeCode } = payload;
     const isExistUser = await CoachModel.findOne({ email }).select(
-      '+authentication'
+      '+authentication',
     );
     if (!isExistUser) {
       throw new ApiError(StatusCodes.BAD_REQUEST, "User doesn't exist!");
@@ -131,7 +131,7 @@ export class CoachAuthService {
     if (!oneTimeCode) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        'Please give the otp, check your email we send a code'
+        'Please give the otp, check your email we send a code',
       );
     }
     console.log(oneTimeCode);
@@ -145,7 +145,7 @@ export class CoachAuthService {
     if (date > isExistUser.authentication?.expireAt) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        'Otp already expired, Please try again'
+        'Otp already expired, Please try again',
       );
     }
 
@@ -158,7 +158,7 @@ export class CoachAuthService {
         {
           verified: true,
           authentication: { oneTimeCode: null, expireAt: null },
-        }
+        },
       );
       message = 'Email verify successfully';
     } else {
@@ -170,7 +170,7 @@ export class CoachAuthService {
             oneTimeCode: null,
             expireAt: null,
           },
-        }
+        },
       );
 
       //create token ;
@@ -203,12 +203,12 @@ export class CoachAuthService {
 
     //user permission check
     const isExistUser = await CoachModel.findById(isExistToken.user).select(
-      '+authentication'
+      '+authentication',
     );
     if (!isExistUser?.authentication?.isResetPassword) {
       throw new ApiError(
         StatusCodes.UNAUTHORIZED,
-        "You don't have permission to change the password. Please click again to 'Forgot Password'"
+        "You don't have permission to change the password. Please click again to 'Forgot Password'",
       );
     }
 
@@ -217,7 +217,7 @@ export class CoachAuthService {
     if (!isValid) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        'Token expired, Please click again to the forget password'
+        'Token expired, Please click again to the forget password',
       );
     }
 
@@ -225,13 +225,13 @@ export class CoachAuthService {
     if (newPassword !== confirmPassword) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        "New password and Confirm password doesn't match!"
+        "New password and Confirm password doesn't match!",
       );
     }
 
     const hashPassword = await bcrypt.hash(
       newPassword,
-      Number(config.bcrypt_salt_rounds)
+      Number(config.bcrypt_salt_rounds),
     );
 
     const updateData = {
@@ -266,12 +266,12 @@ export class CoachAuthService {
       currentPassword &&
       !(await CoachModel.isMatchPassword(
         currentPassword,
-        isExistCoach.password
+        isExistCoach.password,
       ))
     ) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        'Current password is incorrect'
+        'Current password is incorrect',
       );
     }
 
@@ -279,7 +279,7 @@ export class CoachAuthService {
     if (currentPassword === newPassword) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        'New password must be different from current password'
+        'New password must be different from current password',
       );
     }
 
@@ -287,14 +287,14 @@ export class CoachAuthService {
     if (newPassword !== confirmPassword) {
       throw new ApiError(
         StatusCodes.BAD_REQUEST,
-        "New password and confirm password don't match"
+        "New password and confirm password don't match",
       );
     }
 
     // Hash new password
     const hashPassword = await bcrypt.hash(
       newPassword,
-      Number(config.bcrypt_salt_rounds)
+      Number(config.bcrypt_salt_rounds),
     );
 
     // Update password
@@ -344,7 +344,7 @@ export class CoachAuthService {
     const updateDoc = await CoachModel.findOneAndUpdate(
       { _id: coachId },
       { $set: payload },
-      { new: true }
+      { new: true },
     );
 
     return updateDoc;

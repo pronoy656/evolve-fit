@@ -105,20 +105,25 @@ athleteSchema.statics.isMatchPassword = async (
 
 //check user
 athleteSchema.pre('save', async function () {
-  const user = this;
-  console.log(user);
-  // Check if email exists
-  const isExist = await AthleteModel.findOne({ email: user.email });
-  console.log(isExist);
-  if (isExist) {
-    throw new ApiError(StatusCodes.BAD_REQUEST, 'Email already exists!');
+  const user: any = this;
+
+  if (user.isModified('email')) {
+    const isExist = await AthleteModel.findOne({
+      email: user.email,
+      _id: { $ne: user._id },
+    });
+
+    if (isExist) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Email already exists!');
+    }
   }
 
-  // Hash password
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds)
-  );
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(
+      user.password,
+      Number(config.bcrypt_salt_rounds)
+    );
+  }
 });
 
 export const AthleteModel = model<IAthlete, AthleteType>(
