@@ -36,9 +36,9 @@ export class AthleteAuthService {
       throw new ApiError(StatusCodes.BAD_REQUEST, "Athlete doesn't exist!");
     }
 
-    if (!fcmToken) {
-      throw new ApiError(StatusCodes.BAD_REQUEST, 'FCM token Needed!');
-    }
+    // if (!fcmToken) {
+    //   throw new ApiError(StatusCodes.BAD_REQUEST, 'FCM token Needed!');
+    // }
 
     if (
       password &&

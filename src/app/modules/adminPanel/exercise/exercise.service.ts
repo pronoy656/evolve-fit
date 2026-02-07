@@ -10,7 +10,7 @@ export class ExerciseService {
     page: number,
     limit: number,
     search?: string,
-    musalCategory?: string
+    musalCategory?: string,
   ) {
     const skip = (page - 1) * limit;
     const filter: any = {};

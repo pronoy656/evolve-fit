@@ -59,18 +59,14 @@ const fileUploadHandler = () => {
   //file filter
   const filterFilter = (req: Request, file: any, cb: FileFilterCallback) => {
     if (file.fieldname === 'image') {
-      if (
-        file.mimetype === 'image/jpeg' ||
-        file.mimetype === 'image/png' ||
-        file.mimetype === 'image/jpg'
-      ) {
+      if (file.mimetype && file.mimetype.startsWith('image/')) {
         cb(null, true);
       } else {
         cb(
           new ApiError(
             StatusCodes.BAD_REQUEST,
-            'Only .jpeg, .png, .jpg file supported'
-          )
+            'Only image files are supported',
+          ),
         );
       }
     } else if (
@@ -78,14 +74,18 @@ const fileUploadHandler = () => {
       file.fieldname === 'vedio' ||
       file.fieldname === 'video'
     ) {
-      if (file.mimetype === 'video/mp4' || file.mimetype === 'audio/mpeg') {
+      if (
+        file.mimetype &&
+        (file.mimetype.startsWith('video/') ||
+          file.mimetype.startsWith('audio/'))
+      ) {
         cb(null, true);
       } else {
         cb(
           new ApiError(
             StatusCodes.BAD_REQUEST,
-            'Only .mp4, .mp3, file supported'
-          )
+            'Only audio/video files are supported',
+          ),
         );
       }
     } else if (file.fieldname === 'doc') {

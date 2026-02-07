@@ -81,7 +81,7 @@ const athleteSchema = new Schema<IAthlete, AthleteType>(
       select: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 //exist user check
@@ -98,7 +98,7 @@ athleteSchema.statics.isExistAthleteByEmail = async (email: string) => {
 //is match password
 athleteSchema.statics.isMatchPassword = async (
   password: string,
-  hashPassword: string
+  hashPassword: string,
 ): Promise<boolean> => {
   return await bcrypt.compare(password, hashPassword);
 };
@@ -121,19 +121,19 @@ athleteSchema.pre('save', async function () {
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(
       user.password,
-      Number(config.bcrypt_salt_rounds)
+      Number(config.bcrypt_salt_rounds),
     );
   }
 });
 
 export const AthleteModel = model<IAthlete, AthleteType>(
   'Athlete',
-  athleteSchema
+  athleteSchema,
 );
 
 /** Get athletes whose checkDay matches today and haven't been notified */
 export const getAthletesForToday = async (
-  today: string
+  today: string,
 ): Promise<IAthlete[]> => {
   return AthleteModel.find({ checkDay: today, notifiedThisWeek: false });
 };

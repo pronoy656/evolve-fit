@@ -38,6 +38,16 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
           },
         ]
       : [];
+  } else if ((error as any).type === 'entity.too.large') {
+    statusCode = 413;
+    message = 'Request entity too large';
+    errorMessages = [
+      {
+        path: '',
+        message:
+          'Uploaded data is too large. Please reduce size or try a smaller file.',
+      },
+    ];
   } else if (error instanceof ApiError) {
     statusCode = error.statusCode;
     message = error.message;

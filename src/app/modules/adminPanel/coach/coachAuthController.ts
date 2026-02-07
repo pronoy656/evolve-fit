@@ -22,7 +22,7 @@ export class CoachAuthController {
         message: 'Coach logged in successfully',
         data: result,
       });
-    }
+    },
   );
 
   /**
@@ -43,7 +43,7 @@ export class CoachAuthController {
           otp: result,
         },
       });
-    }
+    },
   );
 
   /**
@@ -60,7 +60,7 @@ export class CoachAuthController {
         message: result.message,
         data: result.data,
       });
-    }
+    },
   );
 
   /**
@@ -79,7 +79,7 @@ export class CoachAuthController {
         message: 'Your password has been successfully reset.',
         data: result,
       });
-    }
+    },
   );
 
   /**
@@ -96,7 +96,7 @@ export class CoachAuthController {
         message: result.message,
         data: null,
       });
-    }
+    },
   );
 
   /**
@@ -113,7 +113,7 @@ export class CoachAuthController {
         message: 'Profile retrieved successfully',
         data: result,
       });
-    }
+    },
   );
 
   /**
@@ -139,7 +139,7 @@ export class CoachAuthController {
         message: 'Profile updated successfully',
         data: result,
       });
-    }
+    },
   );
 
   /**
@@ -156,7 +156,7 @@ export class CoachAuthController {
         message: result.message,
         data: null,
       });
-    }
+    },
   );
 
   /**
@@ -176,6 +176,6 @@ export class CoachAuthController {
           otp: result.otp, // Only in development
         },
       });
-    }
+    },
   );
 }
