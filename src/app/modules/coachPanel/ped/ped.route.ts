@@ -13,14 +13,14 @@ const controller = new PEDDatabaseController();
 // Create weekly PED template
 router.post(
   '/',
-  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN, USER_ROLES.ATHLETE),
+  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN),
   controller.createWeeklyPEDDatabase,
 );
 
 // Get PED for a specific athlete (coach view)
 router.get(
   '/:athleteId',
-  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN),
+  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN, USER_ROLES.ATHLETE),
   controller.getAthletePED,
 );
 
