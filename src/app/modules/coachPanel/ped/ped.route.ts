@@ -11,18 +11,25 @@ const controller = new PEDDatabaseController();
  */
 
 // Create weekly PED template
-router.post('/', auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN), controller.createWeeklyPEDDatabase);
+router.post(
+  '/',
+  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN, USER_ROLES.ATHLETE),
+  controller.createWeeklyPEDDatabase,
+);
 
 // Get PED for a specific athlete (coach view)
-router.get('/:athleteId', auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN), controller.getAthletePED);
+router.get(
+  '/:athleteId',
+  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN),
+  controller.getAthletePED,
+);
 
 // Update PED for a specific athlete (coach)
 router.patch(
   '/:athleteId',
   auth(USER_ROLES.COACH),
-  controller.updateAthletePED
+  controller.updateAthletePED,
 );
-
 
 /**
  * 👨‍💻 Athlete Routes
@@ -30,10 +37,18 @@ router.patch(
 
 // Get all PEDs for logged-in athlete (with optional week filter)
 router.get('/app-data', controller.getPEDForAthleteInApp);
-router.get('/', auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN), controller.getPEDByAthlete);
+router.get(
+  '/',
+  auth(USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN),
+  controller.getPEDByAthlete,
+);
 
 // Optional: Get PED by week via query param
 // e.g., GET /ped?week=week_1
-router.get('/week/:week', auth(USER_ROLES.ATHLETE, USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN), controller.getPEDByWeek);
+router.get(
+  '/week/:week',
+  auth(USER_ROLES.ATHLETE, USER_ROLES.COACH, USER_ROLES.SUPER_ADMIN),
+  controller.getPEDByWeek,
+);
 
 export const PEDDatabaseRouter = router;
