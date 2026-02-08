@@ -24,7 +24,7 @@ const ExerciseSchema = new Schema<IExercise>(
 
     video: { type: String, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const ExerciseModel = model<IExercise>('CoachExercise', ExerciseSchema);

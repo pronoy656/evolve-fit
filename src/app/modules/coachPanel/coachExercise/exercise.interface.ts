@@ -4,9 +4,16 @@ export enum MuscleCategory {
   Shoulders = 'Shoulders',
   Arms = 'Arms',
   Back = 'Back',
+  LowerBack = 'Lower Back',
   Core = 'Core',
   Legs = 'Legs',
   Triceps = 'Triceps',
+  Biceps = 'Biceps',
+  Glutes = 'Glutes',
+  Quadriceps = 'Quadriceps',
+  Hamstrings = 'Hamstrings',
+  Calves = 'Calves',
+  Other = 'Other',
 }
 
 export interface IExercise {
@@ -17,6 +24,6 @@ export interface IExercise {
   equipment: string;
   description: string;
   subCategory: MuscleCategory[];
-  image: string;
-  video: string;
+  image?: string;
+  video?: string;
 }

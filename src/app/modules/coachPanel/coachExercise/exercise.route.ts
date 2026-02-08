@@ -11,24 +11,24 @@ router.post(
   '/',
   auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.COACH),
   fileUploadHandler(),
-  controller.addExercise
+  controller.addExercise,
 );
 router.get(
   '/athlete',
   auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.ATHLETE, USER_ROLES.COACH),
-  controller.getAllExercises
+  controller.getAllExercises,
 );
 router.get('/:id', auth(USER_ROLES.SUPER_ADMIN), controller.getExerciseById);
 router.put(
   '/:id',
   auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.COACH),
   fileUploadHandler(),
-  controller.updateExercise
+  controller.updateExercise,
 );
 router.delete(
   '/:id',
   auth(USER_ROLES.SUPER_ADMIN, USER_ROLES.COACH),
-  controller.deleteExercise
+  controller.deleteExercise,
 );
 
 export const CoachExerciseRouter = router;

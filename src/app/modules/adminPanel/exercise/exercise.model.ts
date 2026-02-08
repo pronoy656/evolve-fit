@@ -19,11 +19,11 @@ const ExerciseSchema = new Schema<IExercise>(
       required: true,
     },
 
-    image: { type: String, required: true },
+    image: { type: String, required: false },
 
-    vedio: { type: String, required: true },
+    vedio: { type: String, required: false },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const ExerciseModel = model<IExercise>('Exercise', ExerciseSchema);

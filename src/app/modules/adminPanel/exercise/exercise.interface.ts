@@ -1,12 +1,19 @@
 export enum MuscleCategory {
+  Chest = 'Chest',
+  Neck = 'Neck',
+  Shoulders = 'Shoulders',
+  Arms = 'Arms',
+  Back = 'Back',
+  LowerBack = 'Lower Back',
+  Core = 'Core',
+  Legs = 'Legs',
+  Triceps = 'Triceps',
   Biceps = 'Biceps',
   Glutes = 'Glutes',
-  LowerBack = 'Lower Back',
   Quadriceps = 'Quadriceps',
   Hamstrings = 'Hamstrings',
   Calves = 'Calves',
-  Legs = 'Legs',
-  Triceps = 'Triceps',
+  Other = 'Other',
 }
 
 export interface IExercise {
